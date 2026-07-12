@@ -7,7 +7,7 @@ spec:
     project: default
     source:
         repoURL: 'https://github.com/MohamedElSayed215/daf-devops-task.git'
-        path: app
+        path: app/shop
         targetRevision: main
     destination:
         server: 'https://kubernetes.default.svc'
@@ -16,3 +16,5 @@ spec:
       automated:
         selfHeal: true
         prune: true
+      syncOptions:
+        - CreateNamespace=true    
