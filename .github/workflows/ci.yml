@@ -122,7 +122,7 @@ jobs:
             mohamedelsayed215/products-api:${{ github.sha }}
 
       - name: Scan Docker Image
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0
         with:
           image-ref: mohamedelsayed215/products-api:${{ github.sha }}
           format: table
