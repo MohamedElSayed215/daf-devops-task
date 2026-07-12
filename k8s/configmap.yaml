@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: shop-config
+  namespace: shop
+
+data:
+
+  DB_HOST: postgres
+
+  DB_PORT: "5432"
+
+  DB_NAME: shop
+
+  PRODUCTS_API_URL: http://products-api

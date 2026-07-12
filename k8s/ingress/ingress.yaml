@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: shop-ingress
+  namespace: shop
+
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
+
+spec:
+  ingressClassName: nginx
+
+  tls:
+    - hosts:
+        - shop.local
+      secretName: shop-tls
+
+
+  rules:
+
+  - host: shop.local
+
+    http:
+
+      paths:
+
+      - path: /products(/|$)(.*)
+        pathType: ImplementationSpecific
+
+        backend:
+          service:
+            name: products-api
+            port:
+              number: 8000
+
+
+      - path: /orders(/|$)(.*)
+        pathType: ImplementationSpecific
+
+        backend:
+          service:
+            name: orders-api
+            port:
+              number: 3000

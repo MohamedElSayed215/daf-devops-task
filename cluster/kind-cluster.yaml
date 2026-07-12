@@ -1,0 +1,23 @@
+# Reproducible multi-node cluster for the assessment.
+#   kind create cluster --name shop --config cluster/kind-cluster.yaml
+#
+# 1 control-plane + 3 workers so podAntiAffinity, PodDisruptionBudget, and
+# `kubectl drain` are actually meaningful (they are no-ops on a single node).
+# The control-plane maps 80/443 to your host for ingress.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: shop
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      - { containerPort: 80,  hostPort: 80,  protocol: TCP }
+      - { containerPort: 443, hostPort: 443, protocol: TCP }
+  - role: worker
+  - role: worker
+  - role: worker
