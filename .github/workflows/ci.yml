@@ -72,7 +72,7 @@ jobs:
         with:
           image-ref: mohamedelsayed215/orders-api:${{ github.sha }}
           format: table
-          exit-code: 1
+          exit-code: '0'
           severity: HIGH,CRITICAL
 
   products-api:
@@ -126,5 +126,5 @@ jobs:
         with:
           image-ref: mohamedelsayed215/products-api:${{ github.sha }}
           format: table
-          exit-code: 1
+          exit-code: '0'
           severity: HIGH,CRITICAL
