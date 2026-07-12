@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: shop
+    namespace: argocd
+spec:
+    project: default
+    source:
+        repoURL: 'https://github.com/MohamedElSayed215/gitops.git'
+        path: shop-manifests
+        targetRevision: main
+    destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: shop
+    syncPolicy:
+      automated:
+        selfHeal: true
+        prune: true
