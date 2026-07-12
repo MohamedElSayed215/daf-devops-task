@@ -126,5 +126,5 @@ jobs:
         with:
           image-ref: mohamedelsayed215/products-api:${{ github.sha }}
           format: table
-          exit-code: 0
+          exit-code: '0'
           severity: HIGH,CRITICAL
