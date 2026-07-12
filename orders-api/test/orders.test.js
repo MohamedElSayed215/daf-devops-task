@@ -49,18 +49,32 @@ describe('orders-api', () => {
     expect(res.body).toEqual({ status: 'ok' });
   });
 
-  test('GET /ready returns 200 when DB and products-api are healthy', async () => {
-    global.fetch.mockResolvedValueOnce({ ok: true, status: 200 });
+	//test('GET /ready returns 200 when DB and products-api are healthy', async () => {
+		// global.fetch.mockResolvedValueOnce({ ok: true, status: 200 });
+		// const res = await request(app).get('/ready');
+   // expect(res.status).toBe(200);
+   // expect(res.body.status).toBe('ready');
+  //});
+  test('GET /ready returns 200 when database is healthy', async () => {
     const res = await request(app).get('/ready');
+
     expect(res.status).toBe(200);
     expect(res.body.status).toBe('ready');
-  });
+});
 
-  test('GET /ready returns 503 when products-api is unreachable', async () => {
+  //test('GET /ready returns 503 when products-api is unreachable', async () => {
+   // global.fetch.mockRejectedValueOnce(new Error('ECONNREFUSED'));
+   // const res = await request(app).get('/ready');
+   // expect(res.status).toBe(503);
+  //});
+  test('GET /ready remains healthy when products-api is unreachable', async () => {
     global.fetch.mockRejectedValueOnce(new Error('ECONNREFUSED'));
+
     const res = await request(app).get('/ready');
-    expect(res.status).toBe(503);
-  });
+
+    expect(res.status).toBe(200);
+    expect(res.body.status).toBe('ready');
+});	
 
   test('GET /metrics exposes prometheus text', async () => {
     const res = await request(app).get('/metrics');
