@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+
+metadata:
+
+  name: allow-apis-postgres-egress
+
+  namespace: shop
+
+
+spec:
+
+  podSelector:
+
+    matchExpressions:
+
+    - key: app
+
+      operator: In
+
+      values:
+      - products-api
+      - orders-api
+
+
+  policyTypes:
+
+  - Egress
+
+
+  egress:
+
+  - to:
+
+    - podSelector:
+
+        matchLabels:
+
+          app: postgres
+
+
+    ports:
+
+    - protocol: TCP
+
+      port: 5432
